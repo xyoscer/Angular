@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Angular学习</title>
+</head>
+<body  ng-app="HelloAngular">
+  <!-- <div ng-controller="helloNgCtrl">
+       <p>{{greeting.text}},Angular</p>
+   </div>-->
+   <div ng-controller="helloNgCtrl">
+       <p><span ng-bind="greeting.text"></span>,Angular</p>
+   </div>
+   <input type="text"
+          ng-model="name"
+          placeholder="Enter you name">
+   <h1>Hello <span ng-bind="name"></span></h1>
+   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
+   <!--<script src="../lib/angular.min.js/1.6.1"></script>-->
+  <script src="../js/HelloAngular.js"></script>
+</body>
+</html>
