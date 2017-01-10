@@ -24,28 +24,19 @@
              }
           };
        })
-       .directive('compare',function(){
+       .directive('confirmPwd',function(){ //指令定义用驼峰法
            return {
                require:'ngModel',
-               restrict:'A',//匹配模式 A属性
-               scope:{orgTxt: '=compare'},
+               restrict:'AE',//匹配模式 A属性
+               scope:{orgTxt: '=confirmPwd'},
+               //link的作用是在模型和视图之间建立关联，包括在元素上注册事件监听
                link: function(sco,ele,att,con) {
-                   con.validators.compare = function(v) {
+                   con.$validators.confirmPwd = function(v) {
                        return  v === sco.orgTxt;
                    };
+                   sco.$watch('orgTxt',function() {
+                       con.$validate();
+                   });
                }
            };
-          /*var obj = {};
-           obj.restrict = 'AE';
-           obj.scope = {orgText: '=compare'};
-           obj.require = 'ngModel';
-           obj.link = function(sco,ele,att,ngModel) {
-               ngModel.$validators.compare = function(v) {
-                   return v == sco.orgText;
-               };
-               sco.$watch('orgText',function(){
-                   ngModel.$validate();
-                   });
-           };
-           return obj;*/
        });

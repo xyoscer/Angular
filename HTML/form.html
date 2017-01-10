@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>多个表单项的验证</title>
     <link rel="stylesheet" href="../css/form.css">
+    <link rel="stylesheet" href="../lib/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body ng-app="myApp" ng-controller="SignUpController">
-<form name="signUpForm" ng-submit="submitForm()">
-    <div class="form-group">
+<form name="signUpForm" ng-submit="submitForm()" novalidate  >
+    <div class="form-group" >
         <label>名称</label>
         <input type="text"
                class="form-control"
@@ -17,9 +18,14 @@
                ng-minlength = "2"
                ng-maxlength = "6"
                required
+               ng-class="{'success': signUpForm.username.$valid,
+               'fail':signUpForm.username.$invalid}"
                id="name1">
+        <p class="fa fa-check success-logo"
+          ng-if="signUpForm.username.$valid"></p>
        <p ng-if="(signUpForm.username.$error.minlength ||
-           signUpForm.username.$error.maxlength)&& signUpForm.username.$dirty">
+                signUpForm.username.$error.maxlength)&&
+                 signUpForm.username.$touched">
             用户名长度应在2到4个字符之间</p>
     </div>
 
@@ -31,23 +37,32 @@
                ng-model="userdata.password"
                ng-minlength="4"
                ng-maxlength="12"
-            required>
-        <p ng-if="(signUpForm.password.$error.minlength||
+               ng-class="{'success': signUpForm.password.$valid,
+               'fail':signUpForm.password.$invalid}"
+             required>
+        <p class="fa fa-check success-logo"
+           ng-if="signUpForm.password.$valid"></p>
+   <p ng-if="(signUpForm.password.$error.minlength||
                 signUpForm.passsword.$error.maxlength)&&
-                signUpForm.password.$dirty">
+                signUpForm.password.$touched">
             密码长度应该在4-12位之间</p>
+
     </div>
     <div class="form-group">
         <label>确认密码</label>
+       <!-- ng-model 声明式的绑定数据模型-->
         <input type="password"
                class="form-control"
                name="password1"
                ng-model="userdata.password1"
-               compare="userdata.password"
+               confirm-pwd="userdata.password"
+               ng-class="{'success': signUpForm.password1.$valid,
+                'fail':signUpForm.password1.$invalid}"
                required>
-        <p ng-if="signUpForm.password1.$error.compare &&
-             signUpForm.password1.$dirty">两次输入密码不一致</p>
-
+        <p class="fa fa-check success-logo"
+           ng-if="signUpForm.password1.$valid"></p>
+        <p ng-if="signUpForm.password1.$error.confirmPwd &&
+             signUpForm.password1.$touched">两次输入密码不一致</p>
     </div>
 
     <div class="form-group">
@@ -63,7 +78,7 @@
     </div>
     <button  type="submit" class="btn" id="valite">验证</button>
 </form>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.js"></script>
+<script src="../lib/angular-1.6.1/angular.min.js"></script>
 <script src="../js/HelloAngular.js"></script>
 </body>
 </html>
